@@ -1,6 +1,6 @@
 package com.post_hub.iam_service.controller;
 
-import com.post_hub.iam_service.service.PostService;
+import com.post_hub.iam_service.service.impl.PostServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,24 +11,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
+// Controller to handle post creation requests: /posts/create endpoint.
 @RestController
 @RequestMapping("/posts")
 public class PostController {
 
-    private final PostService postService;
+    private final PostServiceImpl postServiceImpl;
 
     @Autowired
-    public PostController(PostService postService) {
-        this.postService = postService;
+    public PostController(PostServiceImpl postServiceImpl) {
+        this.postServiceImpl = postServiceImpl;
     }
 
+    // Endpoint to create a new post
     @PostMapping("/create")
     public ResponseEntity<String> createPost(@RequestBody Map<String, Object> requestBody) {
         String title = (String) requestBody.get("title");
         String content = (String) requestBody.get("content");
 
         String postContent = "Title: " + title + "\nContent: " + content + "\n";
-        postService.createPost(postContent);
+        postServiceImpl.createPost(postContent);
 
         return new ResponseEntity<>("Post created with title: " + title, HttpStatus.OK);
     }

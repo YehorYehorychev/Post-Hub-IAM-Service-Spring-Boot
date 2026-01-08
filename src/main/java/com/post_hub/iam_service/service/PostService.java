@@ -1,16 +1,6 @@
 package com.post_hub.iam_service.service;
 
-import org.springframework.stereotype.Service;
+public interface PostService {
 
-import java.util.ArrayList;
-import java.util.List;
-
-@Service
-public class PostService {
-
-    private final List<String> posts = new ArrayList<>();
-
-    public void createPost(String postContent) {
-        posts.add(postContent);
-    }
+    void createPost(String postContent);
 }

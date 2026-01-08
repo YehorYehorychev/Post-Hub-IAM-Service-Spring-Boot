@@ -105,4 +105,3 @@ secrets/
 coverage/
 .nyc_output/
 *.lcov
-

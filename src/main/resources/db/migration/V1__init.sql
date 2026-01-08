@@ -9,6 +9,5 @@ CREATE TABLE IF NOT EXISTS posts
 );
 
 INSERT INTO posts (title, content, created_at, likes)
-VALUES ('First Post', 'This is content of the first post', CURRENT_TIMESTAMP, 10),
-       ('Second Post', 'This is content of the second post', CURRENT_TIMESTAMP, 3)
-ON CONFLICT (title) DO NOTHING;
+VALUES ('First Post', 'This is content of the first post', CURRENT_TIMESTAMP, 11),
+       ('Second Post', 'This is content of the second post', CURRENT_TIMESTAMP, 2);

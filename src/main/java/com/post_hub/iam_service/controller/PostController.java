@@ -1,37 +1,34 @@
 package com.post_hub.iam_service.controller;
 
-import com.post_hub.iam_service.service.impl.PostServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import com.post_hub.iam_service.model.constans.ApiErrorMessage;
+import com.post_hub.iam_service.model.constans.ApiLogMessage;
+import com.post_hub.iam_service.model.dto.post.PostDto;
+import com.post_hub.iam_service.model.entities.Post;
+import com.post_hub.iam_service.model.response.IamResponse;
+import com.post_hub.iam_service.repositories.PostRepository;
+import com.post_hub.iam_service.service.PostService;
+import com.post_hub.iam_service.utils.ApiUtils;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
-// Controller to handle post creation requests: /posts/create endpoint.
+@Slf4j
 @RestController
-@RequestMapping("/posts")
+@RequiredArgsConstructor
+@RequestMapping("${endpoint.posts}")
 public class PostController {
 
-    private final PostServiceImpl postServiceImpl;
+    private final PostService postService;
 
-    @Autowired
-    public PostController(PostServiceImpl postServiceImpl) {
-        this.postServiceImpl = postServiceImpl;
-    }
+    @GetMapping("${endpoint.id}")
+    public ResponseEntity<IamResponse<PostDto>> getPostById(@PathVariable(name = "id") Integer id) {
+        log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
 
-    // Endpoint to create a new post
-    @PostMapping("/create")
-    public ResponseEntity<String> createPost(@RequestBody Map<String, Object> requestBody) {
-        String title = (String) requestBody.get("title");
-        String content = (String) requestBody.get("content");
-
-        String postContent = "Title: " + title + "\nContent: " + content + "\n";
-        postServiceImpl.createPost(postContent);
-
-        return new ResponseEntity<>("Post created with title: " + title, HttpStatus.OK);
+        IamResponse<PostDto> response = postService.getPostById(id);
+        return ResponseEntity.ok(response);
     }
 }

@@ -13,4 +13,6 @@ public interface PostService {
     IamResponse<PostDto> createPost(@NotNull PostRequest postRequest);
 
     IamResponse<PostDto> updatePost(@NotNull Integer id, @NotNull UpdatePostRequest updatePostRequest);
+
+    void softDeletePost(@NotNull Integer id);
 }

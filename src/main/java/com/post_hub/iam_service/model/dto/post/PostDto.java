@@ -16,4 +16,5 @@ public class PostDto implements Serializable {
     private String content;
     private Integer likes;
     private LocalDateTime createdAt;
+    private String createdBy;
 }

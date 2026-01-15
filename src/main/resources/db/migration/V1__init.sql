@@ -14,12 +14,14 @@ CREATE TABLE users
 CREATE TABLE IF NOT EXISTS posts
 (
     id         BIGSERIAL PRIMARY KEY,
+    user_id    INTEGER      NOT NULL,
     title      VARCHAR(255) NOT NULL,
     content    TEXT         NOT NULL,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     deleted    BOOLEAN      NOT NULL DEFAULT false,
     likes      INTEGER      NOT NULL DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     UNIQUE (title)
 );
 
@@ -31,6 +33,6 @@ VALUES ('john_doe', 'password_1', 'john@gmail.com', CURRENT_TIMESTAMP, CURRENT_T
        ('test_user', 'password_3', 'test@gmail.com', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'ACTIVE', CURRENT_TIMESTAMP,
         false);
 
-INSERT INTO posts (title, content, created_at, updated, deleted, likes)
-VALUES ('First Post', 'This is content of the first post', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false, 11),
-       ('Second Post', 'This is content of the second post', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false, 2);
+INSERT INTO posts (user_id, title, content, created_at, updated, deleted, likes)
+VALUES (1, 'First Post', 'This is content of the first post', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false, 11),
+       (2, 'Second Post', 'This is content of the second post', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, false, 2);

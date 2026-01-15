@@ -40,7 +40,10 @@ public class PostController {
     public ResponseEntity<IamResponse<PostDto>> createPost(@RequestBody @Valid PostRequest postRequest) {
         log.trace(ApiLogMessage.NAME_OF_CURRENT_METHOD.getValue(), ApiUtils.getMethodName());
 
-        IamResponse<PostDto> response = postService.createPost(postRequest);
+        // TODO: Replace with actual authenticated user ID
+        int userId = 1; // Placeholder for authenticated user ID
+
+        IamResponse<PostDto> response = postService.createPost(userId, postRequest);
         return ResponseEntity.ok(response);
     }
 

@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Post {
+
     public static final String ID_FIELD = "id";
     public static final String TITLE_NAME_FIELD = "title";
     public static final String CONTENT_NAME_FIELD = "content";
@@ -44,4 +45,7 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Column(name = "created_by")
+    private String createdBy;
 }
